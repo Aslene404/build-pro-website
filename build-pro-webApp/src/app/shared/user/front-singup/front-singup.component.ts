@@ -57,14 +57,14 @@ export class FrontSingupComponent implements OnInit {
           let back_path=value[0].path;
           switch (back_path) {
             case 'register':
-              this.router.navigate(['home']);
+              this.router.navigate(['/home']);
               break;
             case 'adduser':
                 this.router.navigate(['back/users']);
               break
             default:
               this.snackBar.open('Wrong :( 404 Not Found', 'Close');
-                this.router.navigate(['front/home']);
+                this.router.navigate(['/home']);
           }
         });
       },

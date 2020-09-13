@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SigninComponent } from './shared/user/signin/front-singin.component';
 import { HomeComponent } from './components/home/HomeComponent';
+import { FrontSingupComponent } from './shared/user/front-singup/front-singup.component';
 const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'signin',component:SigninComponent},
+  {path:'signup',component:FrontSingupComponent},
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 

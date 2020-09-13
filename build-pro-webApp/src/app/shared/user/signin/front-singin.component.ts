@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/shared/authentication.service';
+import { AuthenticationService } from '../../authentication.service';
 
 @Component({
   selector: 'app-front-singin',
@@ -23,7 +23,7 @@ export class SigninComponent implements OnInit {
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/front/home']);
+      this.router.navigate(['/home']);
    } }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class SigninComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/front/home';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
   }
   onSubmit() {
     this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password)
