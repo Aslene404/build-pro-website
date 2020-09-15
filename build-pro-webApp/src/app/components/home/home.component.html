@@ -20,10 +20,25 @@
                     
                     <li><a href="#" class="scroll-link" data-id="contact-us">Contactez-nous</a></li>
                     <li>
-                        <a  routerLink="/signin">
+                        <a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" *ngIf="!currentUser" [routerLink]='["/signin"]' routerLinkActive="active-link"
+                        [routerLinkActive]='["active","inactive"]'  mat-button>
+                            <mat-icon>person</mat-icon>
                             Connexion
                             
                         </a>
+                    </li>
+                    <li *ngIf="currentUser">
+                        
+                            <app-user-logout [currentUser]="currentUser" (onLogout)="logout()"></app-user-logout>
+                        
+                    </li>
+                    <li>
+                        <div  *ngIf="currentUser && currentUser.role=='ADMIN'">
+                            <a [routerLink]='["/back/stat"]' mat-button md:text-right>
+                                <mat-icon>menu</mat-icon>
+                                Admin
+                            </a>
+                        </div>
                     </li>
                     
                 </ul>

@@ -22,6 +22,7 @@ import { FrontSingupComponent } from './shared/user/front-singup/front-singup.co
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { UserService } from './shared/user/user.service';
 //Angular Material Components
 
 @NgModule({
@@ -51,7 +52,7 @@ import { FormsModule } from '@angular/forms';
     MatCardModule,
     FormsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

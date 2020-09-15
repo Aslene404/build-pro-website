@@ -63,7 +63,7 @@ export class FrontSingupComponent implements OnInit {
                 this.router.navigate(['back/users']);
               break
             default:
-              this.snackBar.open('Wrong :( 404 Not Found', 'Close');
+              this.snackBar.open('User Registrtation completed successfully', 'Close');
                 this.router.navigate(['/home']);
           }
         });

@@ -16,10 +16,14 @@
 </mat-menu>
 
 <div class="flex flex-row">
-    <button mat-button [matMenuTriggerFor]="userMenu">
+    <ul class="nav navbar-nav">
+        <li>
+    <a mat-button [matMenuTriggerFor]="userMenu">
         <span> {{currentUser?.fullusername}}
             <mat-icon>arrow_drop_down</mat-icon>
         </span>
-    </button>
+    </a>
+</li>
+</ul>
     
 </div>
