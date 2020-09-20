@@ -7,7 +7,12 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'signin',component:SigninComponent},
   {path:'signup',component:FrontSingupComponent},
-  { path: '**', redirectTo: 'home', pathMatch: 'full' }
+  
+  {
+    path: 'back',
+    loadChildren: () => import('./back-office/back-office.module').then(m => m.BackOfficeModule),
+  },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({

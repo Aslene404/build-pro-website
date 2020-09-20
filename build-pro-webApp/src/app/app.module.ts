@@ -20,9 +20,11 @@ import { MaterialModule } from './shared/material/material.module';
 import { SigninComponent } from './shared/user/signin/front-singin.component';
 import { FrontSingupComponent } from './shared/user/front-singup/front-singup.component';
 import { MatCardModule } from '@angular/material/card';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from './shared/user/user.service';
+import { JwtInterceptor } from './shared/helpers/jwt.interceptor';
+import { ErrorInterceptor } from './shared/helpers/error.interceptor';
 //Angular Material Components
 
 @NgModule({
@@ -52,7 +54,9 @@ import { UserService } from './shared/user/user.service';
     MatCardModule,
     FormsModule
   ],
-  providers: [UserService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
