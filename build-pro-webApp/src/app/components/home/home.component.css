@@ -18,3 +18,12 @@
 .notexist{
     background-color: white;
 }
+.mat-stepper-horizontal {
+    margin-top: 8px;
+    background-color: whitesmoke;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+  
