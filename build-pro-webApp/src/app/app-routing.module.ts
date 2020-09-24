@@ -3,10 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { SigninComponent } from './shared/user/signin/front-singin.component';
 import { HomeComponent } from './components/home/HomeComponent';
 import { FrontSingupComponent } from './shared/user/front-singup/front-singup.component';
+import { DevisFormComponent } from './components/devis-form/devis-form.component';
 const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'signin',component:SigninComponent},
   {path:'signup',component:FrontSingupComponent},
+  {path:'devis',component:DevisFormComponent},
   
   {
     path: 'back',

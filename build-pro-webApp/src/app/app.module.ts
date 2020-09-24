@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from './shared/user/user.service';
 import { JwtInterceptor } from './shared/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './shared/helpers/error.interceptor';
+import { DevisFormComponent } from './components/devis-form/devis-form.component';
 //Angular Material Components
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ErrorInterceptor } from './shared/helpers/error.interceptor';
     FeedbackComponent,
     FooterComponent,
     PartenairesComponent,
-    NavbarComponent
+    NavbarComponent,
+    DevisFormComponent
 
   ],
   imports: [
