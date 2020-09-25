@@ -635,7 +635,8 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="pop">
-                    <span>✖</span>
+                    <span>✖</span><span><button mat-raised-button color="primary" (click)="send()" >Send
+                    </button></span>
                     <form [formGroup]="contactForm">
                         <div class="flex flex-row w-full flex-wrap">
                             <div class="-mx-3 md:flex mb-2 px-3 flex-wrap">
@@ -693,8 +694,8 @@
                         </textarea>
                             </div>
                         </label>
-                        <button mat-raised-button color="primary" (click)="send()" >Send
-                        </button>
+                        
+                        
                     </form>
                 </div>
             </div>

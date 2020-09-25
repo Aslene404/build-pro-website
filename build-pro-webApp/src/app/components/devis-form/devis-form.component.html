@@ -1,5 +1,5 @@
 <mat-horizontal-stepper #stepper>
-    <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Merci de choisir le rôle.">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Veuillez choisir votre rôle</ng-template>
         <mat-selection-list #shoes [multiple]="false">
@@ -18,27 +18,102 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput placeholder="Ex. 1 Main St, New York, NY" formControlName="secondCtrl"
-                 required>
-        </mat-form-field>
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Merci de remplir le formulaire.">
+      <form *ngIf=" shoes.selectedOptions.selected[0]?.value=='Je suis un client'" [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Veuillez remplir le formulaire </ng-template>
         <div>
-          <p>Go to a different step to see the error state</p>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+        <mat-form-field>
+          <mat-label>Nom et prénom</mat-label>
+          <input matInput  formControlName="fullname"
+                 required [readonly]="existUser"
+                 [ngClass]="existUser ? 'exist' : 'notexist' ">
+                 <mat-error >{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Numéro de téléphone</mat-label>
+          <input matInput  formControlName="phone"
+                 required [readonly]="existUser"
+                 [ngClass]="existUser ? 'exist' : 'notexist' ">
+                 <mat-error >{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field >
+          <mat-label>Entrer votre email</mat-label>
+          <input matInput placeholder="pat@example.com" formControlName="email" required [readonly]="existUser"
+          [ngClass]="existUser ? 'exist' : 'notexist' ">
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+        <div>
+          
+          <button mat-button matStepperPrevious>Précédent</button>
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
+      </form>
+      <form *ngIf=" shoes.selectedOptions.selected[0]?.value=='Je suis un professionnel'" [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Veuillez remplir le formulaire </ng-template>
+        <div>
+          <mat-form-field>
+            <mat-label>Nom et prénom</mat-label>
+            <input matInput  formControlName="fullname"
+                   required [readonly]="existUser"
+                   [ngClass]="existUser ? 'exist' : 'notexist' ">
+                   <mat-error >{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Numéro de téléphone</mat-label>
+            <input matInput  formControlName="phone"
+                   required [readonly]="existUser"
+                   [ngClass]="existUser ? 'exist' : 'notexist' ">
+                   <mat-error >{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field >
+            <mat-label>Entrer votre email</mat-label>
+            <input matInput placeholder="pat@example.com" formControlName="email" required [readonly]="existUser"
+            [ngClass]="existUser ? 'exist' : 'notexist' ">
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Nom de l'entreprise de travail</mat-label>
+            <input matInput  formControlName="entreprise"
+                   required>
+                   <mat-error >{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Numéro de registre de commerce</mat-label>
+            <input matInput  formControlName="numregistre"
+                   required>
+                   <mat-error >{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          
+          <button mat-button matStepperPrevious>Précédent</button>
+          <button mat-button matStepperNext>Suivant</button>
         </div>
       </form>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+    
+    <mat-step *ngIf=" shoes.selectedOptions.selected[0]?.value ">
+      <ng-template matStepLabel>Terminé</ng-template>
+      <p>Votre demande est envoyée.</p>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button matStepperPrevious>Précédent</button>
+        <button mat-button (click)="stepper.reset()">Recommencer</button>
+        <button mat-button [routerLink]='["/home"]'>Revenir à la page d'acceuil</button>
+
+        
       </div>
     </mat-step>
   </mat-horizontal-stepper>
