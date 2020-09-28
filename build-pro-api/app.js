@@ -8,6 +8,7 @@ const cors = require('cors');
 
 const usersRouter = require('./routes/users');
 const contactRouter= require('./routes/contact');
+const devisRouter= require('./routes/devis');
 const materialsRouter= require('./routes/materials');
 const projectsRouter= require('./routes/projects');
 const tasksRouter= require('./routes/tasks');
@@ -24,6 +25,7 @@ app.use(express.urlencoded({
 
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/contact' ,contactRouter);
+app.use('/api/v1/devis' ,devisRouter);
 app.use('/api/v1/materials', materialsRouter);
 app.use('/api/v1/tasks', tasksRouter);
 app.use('/api/v1/projects', projectsRouter);
