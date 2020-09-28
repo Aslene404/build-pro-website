@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from 'src/app/shared/user/user.model';
+import { DevisesService } from 'src/app/shared/devis.service';
+import { IApiResponse } from 'src/app/shared/models/api-response.model';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { IUser } from 'src/app/shared/user/user.model';
 export class DevisFormComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   typesOfShoes: string[] = ['Je suis un client', 'Je suis un professionnel'];
-  cat: string[] = ["Construction & Rénovation ►", "Architecture & Bureau d'études ►", "Freelance ►", "Extension ►", "Toiture ", "Toit-terrasse ", "Démolition ►", "Terrassement ►", "Assainissement", "Mur - Cloison - Plafond ►", "Mur extérieur - Façade", "Sol - Plancher ►", "Revêtement ►", "Plomberie", "Electricité", "Domotique ►", "Cuisine", "Salle de bains - Spa ►", "Isolation - Etanchéité", "Chauffage - Cheminée", "Climatisation ►", "Porte - Fenêtre - Volet ►", "Escalier - Garde-corps", "Dressing", "Energie renouvelable"];
+  cat: string[] = ["Construction & Rénovation ►", "Architecture & Bureau d’études ►", "Freelance ►", "Extension ►", "Toiture ", "Toit-terrasse ", "Démolition ►", "Terrassement ►", "Assainissement", "Mur - Cloison - Plafond ►", "Mur extérieur - Façade", "Sol - Plancher ►", "Revêtement ►", "Plomberie", "Electricité", "Domotique ►", "Cuisine", "Salle de bains - Spa ►", "Isolation - Etanchéité", "Chauffage - Cheminée", "Climatisation", "Porte - Fenêtre - Volet ►", "Escalier - Garde-corps", "Dressing", "Energie renouvelable"];
   subcat1: string[] = ['Rénovation de maison', 'Rénovation d’appartement', 'Rénovation d’immeuble', 'Aménagement de loft', 'Rénovation de pièce à vivre', 'Rénovation de cave, grenier, garage', 'Transformation en pièce à vivre de cave, grenier, etc', 'Rénovation péniche habitable', 'Rénovation des menuiseries (porte et fenêtre)', 'Travaux de restauration patrimoine historique'];
   subcat2: string[] = ['Architecture d’intérieur', 'Architecture (construction neuve, extension, etc)', 'Décoration d’intérieur', 'Plans pour maison individuelle', 'Plans d’aménagement intérieur', 'Déclaration préalable de travaux', 'Bureau d’études structure', 'Bureau d’études fluides (chauffage, ventilation, etc)', 'Assurance Dommages Ouvrage'];
   subcat3: string[] = ['Architecture','Projeteur','Ingénieur'];
@@ -35,6 +37,7 @@ export class DevisFormComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
   fourthFormGroup: FormGroup;
+  devisForm:FormGroup;
 
   currentUser: IUser;
   existUser: IUser;
@@ -48,7 +51,7 @@ export class DevisFormComponent implements OnInit {
     return this.email.hasError('email') ? 'Email non valide' : '';
   }
 
-  constructor(private _formBuilder: FormBuilder, private snackBar: MatSnackBar) { }
+  constructor(private _formBuilder: FormBuilder,private devisesService: DevisesService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -66,7 +69,11 @@ export class DevisFormComponent implements OnInit {
         phone: ['', Validators.compose([
           Validators.required,
           Validators.pattern('[0-9]+|0-9]+[0-9]+[0-9]+[0-9]')
-        ])]
+        ])],
+        entreprise: ['', Validators.required],
+            numregistre: ['', Validators.required],
+            cat: [''],
+            subcat: ['']
       });
     } else {
       this.secondFormGroup = this._formBuilder.group({
@@ -78,7 +85,11 @@ export class DevisFormComponent implements OnInit {
         phone: [this.existUser.phone, Validators.compose([
           Validators.required,
           Validators.pattern('[0-9]+|0-9]+[0-9]+[0-9]+[0-9]')
-        ])]
+        ])],
+        entreprise: ['', Validators.required],
+            numregistre: ['', Validators.required],
+            cat: [''],
+            subcat: ['']
 
       });
     }
@@ -92,7 +103,9 @@ export class DevisFormComponent implements OnInit {
             phone: ['', Validators.compose([
               Validators.required,
               Validators.pattern('[0-9]+|0-9]+[0-9]+[0-9]+[0-9]')
-            ])]
+            ])],
+            entreprise: ['', Validators.required],
+            numregistre: ['', Validators.required]
       });
     } else {
       this.thirdFormGroup = this._formBuilder.group({
@@ -111,10 +124,26 @@ export class DevisFormComponent implements OnInit {
     });
     }
     this.fourthFormGroup = this._formBuilder.group({
-      fourthCtrl: ['', Validators.required]
+      cat: ['', Validators.required],
+      subcat: ['', Validators.required]
+    });
+    this.devisForm=this._formBuilder.group({
+      
     });
   }
+  send() {
 
+    this.devisesService.addDevis(this.secondFormGroup.value).subscribe({
+      next: (response: IApiResponse) => {
+        this.snackBar.open(response.message, 'Close');
+      },
+      error: (error) => this.snackBar.open(error.message, 'Close'),
+      complete: () =>  this.secondFormGroup.reset()
+    });
+
+
+
+  }
 }
 function getcurrentUser(): IUser {
   return JSON.parse(localStorage.getItem('currentUser'));
