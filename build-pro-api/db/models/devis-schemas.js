@@ -13,18 +13,10 @@ const devisSchema = new Schema({
         trim: true,
         required: true
     },
-    city: {
-        type: String,
-        trim: true
-    },
     phone: {
         type: String,
         trim: true,
         required: true
-    },
-    opinion: {
-        type: String,
-        trim: true
     },
     entreprise: {
         type: String,
@@ -36,13 +28,11 @@ const devisSchema = new Schema({
     },
     cat: {
         type: String,
-        trim: true,
-        required: true
+        trim: true
     },
     subcat: {
         type: String,
-        trim: true,
-        required: true
+        trim: true
     }
 
 },{
