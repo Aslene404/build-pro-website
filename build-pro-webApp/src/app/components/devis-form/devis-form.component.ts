@@ -27,6 +27,7 @@ export class DevisFormComponent implements OnInit {
   subcat11: string[] = ['Installation de salle de bains complète', 'Installation de sanitaire (baignoire, bac à douche, WC, bidet)', 'Création d’une douche à l’italienne', 'Installation d’une cabine de douche', 'Installation de pare baignoire - pare douche', 'Remplacement d’une colonne de douche', 'Mobilier', 'Installation sèche-serviette électrique', 'Réalisation de joint silicone pour cuisine et salle de bains', 'Jacuzzi, hammam et sauna'];
   subcat12: string[] = ['Porte', 'Fenêtre et porte-fenêtre', 'Isolation porte et fenêtre', 'Store et volet', 'Baie vitrée', 'Remplacement de vitre', 'Création-restauration de vitrail', 'Serrure (installation ou remplacement)', 'Saut de loup (lumière naturelle en sous-sol)', 'Installation de puits de lumière sur toit-terrasse (skydome)', 'Pose de grille anti-effraction devant fenêtre'];
 
+  
 
 
 
@@ -41,9 +42,9 @@ export class DevisFormComponent implements OnInit {
   existUser: IUser;
 
   isEditable = false;
-  
 
-    
+
+
 
   constructor(private _formBuilder: FormBuilder,
     private devisesService: DevisesService,
@@ -100,7 +101,7 @@ export class DevisFormComponent implements OnInit {
           Validators.required,
           Validators.pattern('[0-9]+|0-9]+[0-9]+[0-9]+[0-9]')
         ])],
-    
+
         cat1: [''],
         subcat1: ['']
       });
@@ -115,7 +116,7 @@ export class DevisFormComponent implements OnInit {
           Validators.required,
           Validators.pattern('[0-9]+|0-9]+[0-9]+[0-9]+[0-9]')
         ])],
-        
+
         cat1: [''],
         subcat1: ['']
 
@@ -125,12 +126,36 @@ export class DevisFormComponent implements OnInit {
 
   }
   send() {
+    var devis;
+   
+    if (this.firstFormGroup.get('firstCtrl').value[0] === "Je suis un client") {
+       devis = {
+        fullname: this.thirdFormGroup.value.fullname1,
+        email: this.thirdFormGroup.value.email1,
+        phone: this.thirdFormGroup.value.phone1,
 
-    this.devisesService.addDevis(this.thirdFormGroup.value).subscribe({
+        cat: this.thirdFormGroup.value.cat1[0],
+        subcat: this.thirdFormGroup.value.subcat1[0]
+      }
+    } else if (this.firstFormGroup.get('firstCtrl').value[0] === "Je suis un professionnel") {
+       devis = {
+        fullname: this.secondFormGroup.value.fullname,
+        email: this.secondFormGroup.value.email,
+        phone: this.secondFormGroup.value.phone,
+        entreprise: this.secondFormGroup.value.entreprise,
+        numRegistre: this.secondFormGroup.value.numRegistre,
+        cat: this.secondFormGroup.value.cat[0],
+        subcat: this.secondFormGroup.value.subcat[0]
+      }
+
+    }
+   
+
+    this.devisesService.addDevis(devis).subscribe({
       next: (response: IApiResponse) => {
-        this.snackBar.open(response.message, 'Close');
+        this.snackBar.open(response.message, 'Close',{duration:5000});
       },
-      error: (error) => this.snackBar.open(error.message, 'Close'),
+      error: (error) => this.snackBar.open('Unable to reach API','Close'),
       complete: () => this.thirdFormGroup.reset()
     });
 

@@ -2,14 +2,16 @@
   <mat-step [stepControl]="firstFormGroup" errorMessage="Merci de choisir le rôle.">
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Veuillez choisir votre rôle</ng-template>
-      <mat-selection-list #shoes [multiple]="false">
+      <mat-selection-list #shoes [multiple]="false" formControlName="firstCtrl">
         <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
           {{shoe}}
         </mat-list-option>
       </mat-selection-list>
 
-      <p>
+      <p >
         Option sélectionnée : {{shoes.selectedOptions.selected[0]?.value}}
+        <br>
+        Option sélectionnée : {{firstFormGroup.get('firstCtrl').value}}
       </p>
 
       <div>
