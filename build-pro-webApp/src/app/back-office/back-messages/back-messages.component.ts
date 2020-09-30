@@ -14,7 +14,7 @@ import { ContactsService } from 'src/app/shared/contact.service';
 })
 export class BackMessagesComponent implements OnInit {
   displayedColumns: string[] = [
-    'fullname','email','city', 'phone', 'opinion','delete'
+    'fullname','email','phone','opinion','delete'
    
   ];
  private subscribtion;

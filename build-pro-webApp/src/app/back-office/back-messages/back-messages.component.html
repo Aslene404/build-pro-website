@@ -20,22 +20,18 @@
             <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
   
-        <!-- city Column -->
-        <ng-container matColumnDef="city">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
-            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
-        </ng-container>
   
-        <!-- opinion Column -->
-        <ng-container matColumnDef="opinion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Opinion </th>
-            <td mat-cell *matCellDef="let element"> {{element.opinion}} </td>
-        </ng-container>
+        
   
         <!-- phone Column -->
         <ng-container matColumnDef="phone">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
             <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+        <!-- opinion Column -->
+        <ng-container matColumnDef="opinion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Opinion </th>
+            <td mat-cell *matCellDef="let element"> {{element.opinion}} </td>
         </ng-container>
   
   
