@@ -19,8 +19,8 @@
     </form>
   </mat-step>
 
-  <mat-step errorMessage="Merci de remplir le formulaire.">
-    <form *ngIf=" shoes.selectedOptions.selected[0]?.value=='Je suis un client'" [formGroup]="thirdFormGroup">
+  <mat-step *ngIf=" shoes.selectedOptions.selected[0]?.value=='Je suis un client'" errorMessage="Merci de remplir le formulaire.">
+    <form  [formGroup]="thirdFormGroup">
       
       <ng-template matStepLabel>Veuillez remplir le formulaire </ng-template>
       
@@ -147,7 +147,9 @@
       </mat-grid-tile>
       </mat-grid-list>
     </form>
-    <form *ngIf=" shoes.selectedOptions.selected[0]?.value=='Je suis un professionnel'" [formGroup]="secondFormGroup">
+  </mat-step>
+  <mat-step *ngIf=" shoes.selectedOptions.selected[0]?.value=='Je suis un professionnel'">
+    <form [formGroup]="secondFormGroup">
       
       <ng-template matStepLabel>Veuillez remplir le formulaire </ng-template>
       <div>

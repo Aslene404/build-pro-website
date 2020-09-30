@@ -21,11 +21,15 @@ import { SigninComponent } from './shared/user/signin/front-singin.component';
 import { FrontSingupComponent } from './shared/user/front-singup/front-singup.component';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './shared/user/user.service';
 import { JwtInterceptor } from './shared/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './shared/helpers/error.interceptor';
 import { DevisFormComponent } from './components/devis-form/devis-form.component';
+import { CommonModule } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { RouterModule } from '@angular/router';
 //Angular Material Components
 
 @NgModule({
@@ -47,6 +51,11 @@ import { DevisFormComponent } from './components/devis-form/devis-form.component
 
   ],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    RouterModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -54,7 +63,8 @@ import { DevisFormComponent } from './components/devis-form/devis-form.component
     NgbModule,
     MaterialModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
