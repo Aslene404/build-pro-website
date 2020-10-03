@@ -1,4 +1,5 @@
 import { ICustomer } from './customer.model';
+import { IEntreprise } from './entreprise.model';
 export interface IUser {
     _id?: string;
     fullusername: string;
@@ -10,5 +11,6 @@ export interface IUser {
     isGranted:boolean;
     avatar_url?: string;
     token: string;
-    customer:ICustomer
+    customer:ICustomer;
+    entreprises?:IEntreprise
 }

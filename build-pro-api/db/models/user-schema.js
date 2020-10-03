@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
+const Entreprises=require('./entreprise-schemas');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -49,7 +50,8 @@ const UserSchema = new Schema({
     isGranted: {
         type: Boolean,
         default: false
-    }
+    },
+    entreprises:[{type:Schema.Types.ObjectId,ref:"Entreprises"}]
 }, {
     timestamps: true
 });
