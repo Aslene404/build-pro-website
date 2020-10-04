@@ -5,12 +5,14 @@ import { HomeComponent } from './components/home/HomeComponent';
 import { FrontSingupComponent } from './shared/user/front-singup/front-singup.component';
 import { DevisFormComponent } from './components/devis-form/devis-form.component';
 import { EntrepriseProfileComponent } from './components/entreprise-profile/entreprise-profile.component';
+import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
 const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'signin',component:SigninComponent},
   {path:'signup',component:FrontSingupComponent},
   {path:'devis',component:DevisFormComponent},
   {path:'entreprise/profile',component:EntrepriseProfileComponent},
+  {path:'entreprise/add',component:EntrepriseAddComponent},
   
   {
     path: 'back',

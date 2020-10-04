@@ -31,6 +31,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterModule } from '@angular/router';
 import { EntrepriseProfileComponent } from './components/entreprise-profile/entreprise-profile.component';
+import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
 //Angular Material Components
 
 @NgModule({
@@ -49,7 +50,8 @@ import { EntrepriseProfileComponent } from './components/entreprise-profile/entr
     PartenairesComponent,
     NavbarComponent,
     DevisFormComponent,
-    EntrepriseProfileComponent
+    EntrepriseProfileComponent,
+    EntrepriseAddComponent
 
   ],
   imports: [

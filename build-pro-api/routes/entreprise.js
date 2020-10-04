@@ -38,6 +38,42 @@ router.get('/all', async function (req, res) {
         });
     });
 });
+// Update Entreprise 
+router.put('/update/:id', async function (req, res) {
+    let entrepriseId = req.params.id;
+    let e_projects = req.body.e_projects ? req.body.e_projects : []; 
+    let services = req.body.services ? req.body.services : []; 
+
+    await Entreprise.findById(entrepriseId,
+        async function (error, _entreprise) {
+            if (error) {
+                res.json({
+                    status: "error",
+                    message: "Fail to Update Entreprise",
+                    payload: null
+                });
+            } else {
+                _entreprise.e_projects = e_projects;
+                _entreprise.services = services;
+                await _entreprise.save(function (error, doc) {
+                    if (error) {
+                        res.json({
+                            status: "error",
+                            message: "Fail to Update Entreprise ",
+                            payload: null
+                        });
+                    } else {
+                        res.json({
+                            status: "success",
+                            message: "Entreprise Updated successfully",
+                            payload: doc
+                        });
+                    }
+                });
+            }
+        });
+});
+
 
 // Delete User
 router.delete('/delete/:id', async function (req, res) {
