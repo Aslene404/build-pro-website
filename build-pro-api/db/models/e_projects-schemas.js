@@ -9,7 +9,9 @@ const e_projectsSchema = new Schema({
         trim: true
     },
     photo_url: {
-        type: String
+        type: String,
+        trim: true,
+        default :'uploads/photos/project_image.jpg'
     
     },
     entreprise:{type:Schema.Types.ObjectId,ref:"Entreprise"}

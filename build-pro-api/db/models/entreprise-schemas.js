@@ -6,7 +6,10 @@ const Schema = mongoose.Schema;
 
 const entrepriseSchema = new Schema({
     logo_url:{
-        type:String
+        type:String,
+        trim: true,
+        default :'uploads/photos/well-logo.jpg'
+
     },
     name: {
         type: String,
