@@ -19,12 +19,16 @@ getAllEntreprise(): Observable<IApiResponse> {
     return this._httpClient.post(environment.API_URL + '/api/v1/entreprise/send', entreprise) as Observable<IApiResponse>;
   }
   updateEntreprise(id,action){
-    return this._httpClient.put(
+    return this._httpClient.patch(
       `${environment.API_URL}/api/v1/entreprise/update/${id}`,action) as Observable<IApiResponse>;
     
   }
 
   deleteEntreprise(id): Observable<IApiResponse> {
     return this._httpClient.delete(environment.API_URL + `/api/v1/entreprise/delete/${id}`) as Observable<IApiResponse>;
+  }
+
+  getEntrepriseById(id): Observable<IApiResponse> {
+    return this._httpClient.get(environment.API_URL + `/api/v1/entreprise/${id}`) as Observable<IApiResponse>;
   }
 }

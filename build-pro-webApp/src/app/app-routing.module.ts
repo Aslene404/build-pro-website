@@ -6,6 +6,8 @@ import { FrontSingupComponent } from './shared/user/front-singup/front-singup.co
 import { DevisFormComponent } from './components/devis-form/devis-form.component';
 import { EntrepriseProfileComponent } from './components/entreprise-profile/entreprise-profile.component';
 import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
+import {EntrepriseResolver} from './shared/entreprise-resolver.service';
+import {EntrepriseUpdateComponent} from './components/entreprise-update/entreprise-update.component'
 const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'signin',component:SigninComponent},
@@ -13,6 +15,7 @@ const routes: Routes = [
   {path:'devis',component:DevisFormComponent},
   {path:'entreprise/profile',component:EntrepriseProfileComponent},
   {path:'entreprise/add',component:EntrepriseAddComponent},
+  {path:'entreprise/update/:id',component:EntrepriseUpdateComponent , resolve:{entreprise:EntrepriseResolver}},
   
   {
     path: 'back',

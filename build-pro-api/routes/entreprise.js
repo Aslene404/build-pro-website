@@ -3,7 +3,7 @@ var router = express.Router();
 var Entreprise = require('../db/models/entreprise-schemas');
 
 router.post('/send', async function (req, res) {
-    
+
     let new_entreprise = req.body;
     let entreprise = await Entreprise.create(new_entreprise);
     if (!entreprise) {
@@ -38,40 +38,61 @@ router.get('/all', async function (req, res) {
         });
     });
 });
-// Update Entreprise 
-router.put('/update/:id', async function (req, res) {
-    let entrepriseId = req.params.id;
-    let e_projects = req.body.e_projects ? req.body.e_projects : []; 
-    let services = req.body.services ? req.body.services : []; 
 
-    await Entreprise.findById(entrepriseId,
-        async function (error, _entreprise) {
-            if (error) {
-                res.json({
-                    status: "error",
-                    message: "Fail to Update Entreprise",
-                    payload: null
-                });
-            } else {
-                _entreprise.e_projects = e_projects;
-                _entreprise.services = services;
-                await _entreprise.save(function (error, doc) {
-                    if (error) {
-                        res.json({
-                            status: "error",
-                            message: "Fail to Update Entreprise ",
-                            payload: null
-                        });
-                    } else {
-                        res.json({
-                            status: "success",
-                            message: "Entreprise Updated successfully",
-                            payload: doc
-                        });
-                    }
-                });
-            }
+
+//Get Entreprise By Id
+router.get('/:id', async function (req, res) {
+    let id = req.params.id;
+    const entreprise = await Entreprise.findById(id);
+    if (!entreprise) {
+        res.json({
+            status: "error",
+            message: "Echec d'obtenir les entreprises",
+            payload: null
         });
+    } else {
+        res.json({
+            status: "success",
+            message: "Entreprise",
+            payload: entreprise
+        });
+    }
+
+});
+
+
+// Update Entreprise 
+router.patch('/update/:id', async function (req, res) {
+    let entrepriseId = req.params.id;
+    //let e_projects = req.body.e_projects ? req.body.e_projects : []; 
+    const { ...entreprise } = req.body;
+
+    if (!entreprise) {
+        res.json({
+            status: "error",
+            message: "There is no field to update",
+            payload: null
+        });
+    } else {
+        const updatedEntreprise = await Entreprise.findByIdAndUpdate(entrepriseId, entreprise);
+        const result = await Entreprise.findById(entrepriseId);
+        if (!updatedEntreprise) {
+            res.json({
+                status: "error",
+                message: "Fail to Update Entreprise fields",
+                payload: null
+            });
+        } else {
+            res.json({
+                status: "success",
+                message: "Entreprise Successfully Updated",
+                payload: result
+            });
+        }
+    }
+
+
+
 });
 
 

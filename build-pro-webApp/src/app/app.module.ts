@@ -32,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterModule } from '@angular/router';
 import { EntrepriseProfileComponent } from './components/entreprise-profile/entreprise-profile.component';
 import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
+import { EntrepriseUpdateComponent } from './components/entreprise-update/entreprise-update.component';
 //Angular Material Components
 
 @NgModule({
@@ -51,7 +52,8 @@ import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-a
     NavbarComponent,
     DevisFormComponent,
     EntrepriseProfileComponent,
-    EntrepriseAddComponent
+    EntrepriseAddComponent,
+    EntrepriseUpdateComponent
 
   ],
   imports: [
