@@ -1,93 +1,129 @@
 <div class="text-center">
-    
-    <span class="text-center"><h2> Ajoutez Votre Entreprise</h2></span>
+
+    <span class="text-center">
+        <h2> Ajoutez Votre Entreprise</h2>
+    </span>
 </div>
 
-<mat-horizontal-stepper class="flex justify-center" linear #stepper>
-    <mat-step>
-    <mat-card class="login">
-        <form [formGroup]="entrepriseForm">
-            <ng-template matStepLabel>Veuillez remplir le formulaire </ng-template>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Nom de l'entreprise</mat-label>
-                    <input matInput placeholder="Entrez le nom de votre entreprise" required formControlName="name">
-                    <mat-icon matSuffix>business_center</mat-icon>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>À propos de l'entreprise</mat-label>
-                    <textarea matInput placeholder="Entrez les informations de votre entreprise" required formControlName="about"></textarea>
-                    <mat-icon matSuffix>info</mat-icon>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Numéro de téléphone</mat-label>
-                    <input matInput placeholder="Entrez votre numéro de téléphone " required formControlName="phone">
 
-                    <mat-icon matSuffix>phone</mat-icon>
-                    <mat-error *ngIf="entrepriseForm.controls['phone'].hasError('pattern')"> Invalid phone number
-                    </mat-error>
-                    <mat-error *ngIf="entrepriseForm.controls['phone'].hasError('required')"> Phone number required
-                    </mat-error>
-                </mat-form-field>
-            </div>
 
-            
-    
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input type="email" matInput placeholder="Entrez votre email" required formControlName="email">
-                    <mat-icon matSuffix>email</mat-icon>
-                    <mat-error *ngIf="entrepriseForm.controls['email'].hasError('pattern')" > Invalid email </mat-error>
-          <mat-error *ngIf="entrepriseForm.controls['email'].hasError('required')" > Email required </mat-error>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Page Facebook</mat-label>
-                    <input matInput placeholder="Entrez le lien de votre page Facebook" required formControlName="fb">
-                    <span class="material-icons" matSuffix>
-                        facebook
-                        </span>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Page Web</mat-label>
-                    <input matInput placeholder="Entrez le lien de votre page Web" required formControlName="web">
-                    <span class="material-icons" matSuffix>
-                        language
-                        </span>
-                    
-                </mat-form-field>
-            </div>
-            <h3>Les services de votre entreprise</h3>
-            <ng-template matStepLabel>Veuillez saisir les services de votre entreprise </ng-template>
-            <div formArrayName="services" >
-                <mat-form-field appearance="fill" *ngFor="let service of services.controls; let i=index">
-                    <mat-label>Service(s) fourni(s) par l'entreprise </mat-label>
-                    <input matInput placeholder="Entrez le service de votre entreprise" required [formControlName]="i">
-                    <mat-icon matSuffix>assignment</mat-icon>
-                </mat-form-field>
-                <button mat-raised-button color="primary" matStepperNext (click)="addService()">Ajouter ce service</button>
-            </div>
-            
-            
-            
-        </form>
-        <div class="flex items-center justify-between">
-            <button mat-raised-button color="primary" matStepperNext (click)="send()">Envoyer</button>
+<mat-card class="login">
+    <form [formGroup]="entrepriseForm">
 
-    
-
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Nom de l'entreprise</mat-label>
+                <input matInput placeholder="Entrez le nom de votre entreprise" required formControlName="name">
+                <mat-icon matSuffix>business_center</mat-icon>
+            </mat-form-field>
         </div>
-    </mat-card>
-</mat-step>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>À propos de l'entreprise</mat-label>
+                <textarea matInput placeholder="Entrez les informations de votre entreprise" required
+                    formControlName="about"></textarea>
+                <mat-icon matSuffix>info</mat-icon>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Numéro de téléphone</mat-label>
+                <input matInput placeholder="Entrez votre numéro de téléphone " required formControlName="phone">
+
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error *ngIf="entrepriseForm.controls['phone'].hasError('pattern')"> Invalid phone number
+                </mat-error>
+                <mat-error *ngIf="entrepriseForm.controls['phone'].hasError('required')"> Phone number required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput placeholder="Entrez votre email" required formControlName="email">
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngIf="entrepriseForm.controls['email'].hasError('pattern')"> Invalid email </mat-error>
+                <mat-error *ngIf="entrepriseForm.controls['email'].hasError('required')"> Email required </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Page Facebook</mat-label>
+                <input matInput placeholder="Entrez le lien de votre page Facebook" required formControlName="fb">
+                <span class="material-icons" matSuffix>
+                    facebook
+                </span>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Page Web</mat-label>
+                <input matInput placeholder="Entrez le lien de votre page Web" required formControlName="web">
+                <span class="material-icons" matSuffix>
+                    language
+                </span>
+
+            </mat-form-field>
+        </div>
+        <h3>Les services de votre entreprise</h3>
+
+        <div formArrayName="services">
+            <mat-form-field appearance="fill" *ngFor="let service of services.controls; let i=index">
+                <mat-label>Service(s) fourni(s) par l'entreprise </mat-label>
+                <input matInput placeholder="Entrez le service de votre entreprise" required [formControlName]="i">
+                <mat-icon matSuffix>assignment</mat-icon>
+            </mat-form-field>
+            <div>
+            <button mat-raised-button color="basic" (click)="addService()">Ajouter un autre service</button>
+        </div>
+        </div>
+        <br>
+        <h3>Les Projets réalisés par votre entreprise</h3>
+        <div formArrayName="e_projects" *ngFor="let e_project of e_projects.controls; let i1=index;let i2=index">
+            <mat-form-field appearance="fill">
+                <mat-label>Nom du Projet réalisé par l'entreprise </mat-label>
+                <input matInput placeholder="Entrez le nom du projet réalisé par votre entreprise" required
+                    [formControlName]="i1">
+                <mat-icon matSuffix>gavel</mat-icon>
+            </mat-form-field>
+            <input type="file" class="custom-file-input" id="inputImage" aria-describedby="inputGroupFileAddon01" [formControlName]="i2">
+            <label class="custom-file-label" for="inputImage">Veuillez choisir l'image du projet réalisé par votre entreprise</label>
+            
+        </div>
+        <div>
+            <button mat-raised-button color="basic" (click)="addProject()">Ajouter un autre projet</button>
+        </div>
+
+
+
+
+
+       
+        <br>
+                <h3>Logo de votre entreprise</h3>
+            
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputLogo" aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputLogo">Veuillez choisir le logo de votre entreprise</label>
+        </div>
+        
 
         
 
-</mat-horizontal-stepper>
+
+
+
+
+
+
+    </form>
+    <div class="flex items-center justify-between">
+        <button mat-raised-button color="primary" (click)="send()">Envoyer</button>
+
+
+
+    </div>
+</mat-card>

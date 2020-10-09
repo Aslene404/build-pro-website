@@ -31,7 +31,7 @@ const entrepriseSchema = new Schema({
     }],
     projects: [{ 
         type:Schema.Types.ObjectId,
-        ref: "projects"
+        ref: "e_projects"
     }],
     phone: {
         type: String,

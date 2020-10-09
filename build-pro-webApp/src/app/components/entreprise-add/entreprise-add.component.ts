@@ -43,6 +43,9 @@ existUser: IUser;
       web: ['', Validators.required],
       services:this._formBuilder.array([
         this._formBuilder.control('')
+      ]),
+      e_projects:this._formBuilder.array([
+        this._formBuilder.control('')
       ])
 
       
@@ -53,9 +56,16 @@ existUser: IUser;
   get services() {
     return this.entrepriseForm.get('services') as FormArray;
   }
+  get e_projects() {
+    return this.entrepriseForm.get('e_projects') as FormArray;
+  }
   addService() {
     this.services.push(this._formBuilder.control(''));
   }
+  addProject() {
+    this.e_projects.push(this._formBuilder.control(''));
+  }
+  
   
   
 
@@ -71,7 +81,8 @@ existUser: IUser;
       phone:this.entrepriseForm.value.phone,
       fb:this.entrepriseForm.value.fb,
       website:this.entrepriseForm.value.web,
-      services:this.entrepriseForm.value.services
+      services:this.entrepriseForm.value.services,
+      projects:this.entrepriseForm.value.e_projects
     }
     this.entreprisesService.addEntreprise(entreprise).subscribe({
       next: (response: IApiResponse) => {
