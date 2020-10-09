@@ -16,7 +16,7 @@ router.post('/send', async function (req, res) {
     else {
         res.json({
             status: "success",
-            message: "Votre demande est envoyée avec succès",
+            message: "Votre projet est ajouté avec succès",
             payload: e_projects
         });
     }

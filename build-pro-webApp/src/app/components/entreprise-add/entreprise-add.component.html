@@ -65,7 +65,16 @@
                     
                 </mat-form-field>
             </div>
-            
+            <h3>Les services de votre entreprise</h3>
+            <ng-template matStepLabel>Veuillez saisir les services de votre entreprise </ng-template>
+            <div formArrayName="services" >
+                <mat-form-field appearance="fill" *ngFor="let service of services.controls; let i=index">
+                    <mat-label>Service(s) fourni(s) par l'entreprise </mat-label>
+                    <input matInput placeholder="Entrez le service de votre entreprise" required [formControlName]="i">
+                    <mat-icon matSuffix>assignment</mat-icon>
+                </mat-form-field>
+                <button mat-raised-button color="primary" matStepperNext (click)="addService()">Ajouter ce service</button>
+            </div>
             
             
             
@@ -78,21 +87,7 @@
         </div>
     </mat-card>
 </mat-step>
-<mat-step>
-<mat-card class="login">
-    <form [formGroup]="servicesForm">
-        <ng-template matStepLabel>Veuillez saisir les services de votre entreprise </ng-template>
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Service(s) fourni(s) par l'entreprise </mat-label>
-                <input matInput placeholder="Entrez le service de votre entreprise" required formControlName="service">
-                <mat-icon matSuffix>assignment</mat-icon>
-            </mat-form-field>
-            <button mat-raised-button color="primary" matStepperNext (click)="sendService()">Ajouter un autre service</button>
-        </div>
-        </form>
-        </mat-card>
-    </mat-step>
+
         
 
 </mat-horizontal-stepper>
