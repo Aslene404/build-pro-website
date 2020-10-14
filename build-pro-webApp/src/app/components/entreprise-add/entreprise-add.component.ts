@@ -1,6 +1,7 @@
-import { Component, OnInit ,Output, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Output, Input, OnChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { E_projectssService } from 'src/app/shared/e_projects.service';
 
 import { EntreprisesService } from 'src/app/shared/entreprise.service';
 import { IApiResponse } from 'src/app/shared/models/api-response.model';
@@ -13,21 +14,22 @@ import { IUser } from 'src/app/shared/user/user.model';
   styleUrls: ['./entreprise-add.component.css']
 })
 export class EntrepriseAddComponent implements OnInit {
-  
-  
 
- 
 
-entrepriseForm:FormGroup;
-currentUser: IUser;
-existUser: IUser;
+
+
+  e_projectsForm: FormGroup;
+  entrepriseForm: FormGroup;
+  currentUser: IUser;
+  existUser: IUser;
   constructor(private _formBuilder: FormBuilder,
     private entreprisesService: EntreprisesService,
+    private e_projectsService: E_projectssService,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    
-    this.existUser=getcurrentUser();
+
+    this.existUser = getcurrentUser();
     this.entrepriseForm = this._formBuilder.group({
       name: ['', Validators.required],
       about: ['', Validators.required],
@@ -41,61 +43,77 @@ existUser: IUser;
       ])],
       fb: ['', Validators.required],
       web: ['', Validators.required],
-      services:this._formBuilder.array([
-        this._formBuilder.control('')
-      ]),
-      e_projects:this._formBuilder.array([
+      services: this._formBuilder.array([
         this._formBuilder.control('')
       ])
 
-      
+
     });
-    
-    
+    this.e_projectsForm = this._formBuilder.group({
+      name: ['', Validators.required],
+      photo: ['', Validators.required]
+
+
+
+    });
+
+
   }
   get services() {
     return this.entrepriseForm.get('services') as FormArray;
   }
-  get e_projects() {
-    return this.entrepriseForm.get('e_projects') as FormArray;
-  }
+
   addService() {
     this.services.push(this._formBuilder.control(''));
   }
+
   addProject() {
-    this.e_projects.push(this._formBuilder.control(''));
+    var e_project;
+    e_project = {
+      name: this.e_projectsForm.value.name,
+      photo_url: this.e_projectsForm.value.photo,
+      entreprise: ''
+
+    }
+    this.e_projectsService.addE_projects(e_project).subscribe({
+      next: (response: IApiResponse) => {
+        this.snackBar.open(response.message, 'Close', { duration: 5000 });
+      },
+      error: (error) => this.snackBar.open('Unable to reach API', 'Close'),
+      complete: () => this.e_projectsForm.reset()
+
+    });
   }
-  
-  
-  
+
+
+
 
 
 
   send() {
     var entreprise;
-    entreprise={
-      name:this.entrepriseForm.value.name,
-      about:this.entrepriseForm.value.about,
-      owner:this.existUser._id,
-      email:this.entrepriseForm.value.email,
-      phone:this.entrepriseForm.value.phone,
-      fb:this.entrepriseForm.value.fb,
-      website:this.entrepriseForm.value.web,
-      services:this.entrepriseForm.value.services,
-      projects:this.entrepriseForm.value.e_projects
+    entreprise = {
+      name: this.entrepriseForm.value.name,
+      about: this.entrepriseForm.value.about,
+      owner: this.existUser._id,
+      email: this.entrepriseForm.value.email,
+      phone: this.entrepriseForm.value.phone,
+      fb: this.entrepriseForm.value.fb,
+      website: this.entrepriseForm.value.web,
+      services: this.entrepriseForm.value.services
     }
     this.entreprisesService.addEntreprise(entreprise).subscribe({
       next: (response: IApiResponse) => {
-        this.snackBar.open(response.message, 'Close',{duration:5000});
+        this.snackBar.open(response.message, 'Close', { duration: 5000 });
       },
-      error: (error) => this.snackBar.open('Unable to reach API','Close'),
+      error: (error) => this.snackBar.open('Unable to reach API', 'Close'),
       complete: () => this.entrepriseForm.reset()
 
     });
 
   }
 }
-  
+
 
 function getcurrentUser(): IUser {
   return JSON.parse(localStorage.getItem('currentUser'));

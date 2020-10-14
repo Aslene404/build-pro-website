@@ -5,8 +5,9 @@
     </span>
 </div>
 
-
-
+<mat-horizontal-stepper #stepper>
+<mat-step>
+    <ng-template matStepLabel>Veuillez remplir le formulaire</ng-template>
 <mat-card class="login">
     <form [formGroup]="entrepriseForm">
 
@@ -68,6 +69,7 @@
 
             </mat-form-field>
         </div>
+        <mat-card>
         <h3>Les services de votre entreprise</h3>
 
         <div formArrayName="services">
@@ -80,27 +82,9 @@
             <button mat-raised-button color="basic" (click)="addService()">Ajouter un autre service</button>
         </div>
         </div>
-        <br>
-        <h3>Les Projets réalisés par votre entreprise</h3>
-        <div formArrayName="e_projects" *ngFor="let e_project of e_projects.controls; let i1=index;let i2=index">
-            <mat-form-field appearance="fill">
-                <mat-label>Nom du Projet réalisé par l'entreprise </mat-label>
-                <input matInput placeholder="Entrez le nom du projet réalisé par votre entreprise" required
-                    [formControlName]="i1">
-                <mat-icon matSuffix>gavel</mat-icon>
-            </mat-form-field>
-            <input type="file" class="custom-file-input" id="inputImage" aria-describedby="inputGroupFileAddon01" [formControlName]="i2">
-            <label class="custom-file-label" for="inputImage">Veuillez choisir l'image du projet réalisé par votre entreprise</label>
-            
-        </div>
-        <div>
-            <button mat-raised-button color="basic" (click)="addProject()">Ajouter un autre projet</button>
-        </div>
-
-
-
-
-
+    </mat-card>
+       
+        
        
         <br>
                 <h3>Logo de votre entreprise</h3>
@@ -121,9 +105,41 @@
 
     </form>
     <div class="flex items-center justify-between">
-        <button mat-raised-button color="primary" (click)="send()">Envoyer</button>
+        <button mat-raised-button color="primary" matStepperNext (click)="send()">Envoyer</button>
 
 
 
     </div>
 </mat-card>
+</mat-step>
+<mat-step>
+    <ng-template matStepLabel>Veuillez saisir les projets realisé par votre entreprise</ng-template>
+    <mat-card>
+        <form [formGroup]="e_projectsForm">
+        <h3>Les Projets réalisés par votre entreprise</h3>
+        
+            <mat-form-field appearance="fill">
+                <mat-label>Nom du Projet réalisé par l'entreprise </mat-label>
+                <input matInput placeholder="Entrez le nom du projet réalisé par votre entreprise" required
+                    formControlName="name">
+                <mat-icon matSuffix>gavel</mat-icon>
+            </mat-form-field>
+            <input type="file" class="custom-file-input" id="inputImage" aria-describedby="inputGroupFileAddon01" formControlName="photo">
+            <label class="custom-file-label" for="inputImage">Veuillez choisir l'image du projet réalisé par votre entreprise</label>
+            
+        
+        <div>
+            <button mat-raised-button color="primary" (click)="addProject()">Ajouter ce projet à votre entreprise</button>
+            
+        </div>
+    </form>
+    </mat-card>
+
+
+
+
+
+    
+</mat-step>
+</mat-horizontal-stepper>
+
