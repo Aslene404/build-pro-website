@@ -38,6 +38,60 @@ router.get('/all', async function (req, res) {
         });
     });
 });
+//Get E_project By Id
+router.get('/:id', async function (req, res) {
+    let id = req.params.id;
+    const e_project = await e_projects.findById(id);
+    if (!e_project) {
+        res.json({
+            status: "error",
+            message: "Echec d'obtenir les e_project",
+            payload: null
+        });
+    } else {
+        res.json({
+            status: "success",
+            message: "E_project",
+            payload: e_project
+        });
+    }
+
+});
+
+
+// Update E_project 
+router.patch('/update/:id', async function (req, res) {
+    let e_projectId = req.params.id;
+    //let e_projects = req.body.e_projects ? req.body.e_projects : []; 
+    const { ...e_project } = req.body;
+
+    if (!e_project) {
+        res.json({
+            status: "error",
+            message: "There is no field to update",
+            payload: null
+        });
+    } else {
+        const updatedE_project = await e_projects.findByIdAndUpdate(e_projectId, e_project);
+        const result = await e_projects.findById(e_projectId);
+        if (!updatedE_project) {
+            res.json({
+                status: "error",
+                message: "Fail to Update E_project fields",
+                payload: null
+            });
+        } else {
+            res.json({
+                status: "success",
+                message: "E_project Successfully Updated",
+                payload: result
+            });
+        }
+    }
+
+
+
+});
 
 // Delete User
 router.delete('/delete/:id', async function (req, res) {

@@ -94,7 +94,40 @@ router.patch('/update/:id', async function (req, res) {
 
 
 });
+// Update Entreprise's projects 
+router.put('/update/:id', async function (req, res) {
+    let entrepriseId = req.params.id;
+    let e_projects = req.body.e_projects ? req.body.e_projects : [];
 
+    await Entreprise.findById(entrepriseId,
+        async function (error, _entreprise) {
+            if (error) {
+                res.json({
+                    status: "error",
+                    message: "Fail to Update Entreprise's projects :(",
+                    payload: null
+                });
+            } else {
+
+                _entreprise.e_projectsIds = e_projects;
+                await _entreprise.save(function (error, doc) {
+                    if (error) {
+                        res.json({
+                            status: "error",
+                            message: "Fail to Update Entreprise's projects :(",
+                            payload: null
+                        });
+                    } else {
+                        res.json({
+                            status: "success",
+                            message: "Entreprise's projects Updated successfully",
+                            payload: doc
+                        });
+                    }
+                });
+            }
+        });
+});
 
 // Delete User
 router.delete('/delete/:id', async function (req, res) {

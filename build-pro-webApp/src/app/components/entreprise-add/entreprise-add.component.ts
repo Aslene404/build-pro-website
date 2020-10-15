@@ -72,7 +72,7 @@ export class EntrepriseAddComponent implements OnInit {
     e_project = {
       name: this.e_projectsForm.value.name,
       photo_url: this.e_projectsForm.value.photo,
-      entreprise: ''
+      entreprise: '' //addEntreprise payload id
 
     }
     this.e_projectsService.addE_projects(e_project).subscribe({
