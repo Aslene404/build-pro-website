@@ -6,6 +6,7 @@ import { E_projectssService } from 'src/app/shared/e_projects.service';
 import { EntreprisesService } from 'src/app/shared/entreprise.service';
 import { IApiResponse } from 'src/app/shared/models/api-response.model';
 import { IUser } from 'src/app/shared/user/user.model';
+import { IEntreprise } from 'src/app/shared/models/entreprise.model';
 
 
 @Component({
@@ -22,12 +23,14 @@ export class EntrepriseAddComponent implements OnInit {
   entrepriseForm: FormGroup;
   currentUser: IUser;
   existUser: IUser;
+  createdEntreprise:IEntreprise;
   constructor(private _formBuilder: FormBuilder,
     private entreprisesService: EntreprisesService,
     private e_projectsService: E_projectssService,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    
 
     this.existUser = getcurrentUser();
     this.entrepriseForm = this._formBuilder.group({
@@ -71,8 +74,8 @@ export class EntrepriseAddComponent implements OnInit {
     var e_project;
     e_project = {
       name: this.e_projectsForm.value.name,
-      photo_url: this.e_projectsForm.value.photo,
-      entreprise: '' //addEntreprise payload id
+
+      entreprise: this.createdEntreprise._id 
 
     }
     this.e_projectsService.addE_projects(e_project).subscribe({
@@ -105,6 +108,9 @@ export class EntrepriseAddComponent implements OnInit {
     this.entreprisesService.addEntreprise(entreprise).subscribe({
       next: (response: IApiResponse) => {
         this.snackBar.open(response.message, 'Close', { duration: 5000 });
+        this.createdEntreprise=response.payload
+        
+        
       },
       error: (error) => this.snackBar.open('Unable to reach API', 'Close'),
       complete: () => this.entrepriseForm.reset()

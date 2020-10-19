@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var e_projects = require('../db/models/e_projects-schemas');
+var E_projects = require('../db/models/e_projects-schemas');
 
 router.post('/send', async function (req, res) {
     
     let new_e_projects = req.body;
-    let e_projects = await e_projects.create(new_e_projects);
+    let e_projects = await E_projects.create(new_e_projects);
     if (!e_projects) {
         res.json({
             status: "failed",
@@ -23,7 +23,7 @@ router.post('/send', async function (req, res) {
 });
 
 router.get('/all', async function (req, res) {
-    await e_projects.find({}, function (err, e_projectss) {
+    await E_projects.find({}, function (err, e_projectss) {
         if (err) {
             res.json({
                 status: "error",
@@ -41,7 +41,7 @@ router.get('/all', async function (req, res) {
 //Get E_project By Id
 router.get('/:id', async function (req, res) {
     let id = req.params.id;
-    const e_project = await e_projects.findById(id);
+    const e_project = await E_projects.findById(id);
     if (!e_project) {
         res.json({
             status: "error",
@@ -72,8 +72,8 @@ router.patch('/update/:id', async function (req, res) {
             payload: null
         });
     } else {
-        const updatedE_project = await e_projects.findByIdAndUpdate(e_projectId, e_project);
-        const result = await e_projects.findById(e_projectId);
+        const updatedE_project = await E_projects.findByIdAndUpdate(e_projectId, e_project);
+        const result = await E_projects.findById(e_projectId);
         if (!updatedE_project) {
             res.json({
                 status: "error",
@@ -96,7 +96,7 @@ router.patch('/update/:id', async function (req, res) {
 // Delete User
 router.delete('/delete/:id', async function (req, res) {
     let e_projectsId = req.params.id;
-    await e_projects.findByIdAndRemove(e_projectsId, function (err, doc) {
+    await E_projects.findByIdAndRemove(e_projectsId, function (err, doc) {
         if (err) {
             res.json({
                 status: "error",
