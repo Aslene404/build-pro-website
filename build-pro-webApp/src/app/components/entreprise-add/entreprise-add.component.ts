@@ -7,6 +7,7 @@ import { EntreprisesService } from 'src/app/shared/entreprise.service';
 import { IApiResponse } from 'src/app/shared/models/api-response.model';
 import { IUser } from 'src/app/shared/user/user.model';
 import { IEntreprise } from 'src/app/shared/models/entreprise.model';
+import { IE_projects } from 'src/app/shared/models/e_projects.model';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class EntrepriseAddComponent implements OnInit {
   currentUser: IUser;
   existUser: IUser;
   createdEntreprise:IEntreprise;
+  createdE_project:IE_projects;
   constructor(private _formBuilder: FormBuilder,
     private entreprisesService: EntreprisesService,
     private e_projectsService: E_projectssService,
@@ -79,6 +81,18 @@ export class EntrepriseAddComponent implements OnInit {
 
     }
     this.e_projectsService.addE_projects(e_project).subscribe({
+      next: (response: IApiResponse) => {
+        this.snackBar.open(response.message, 'Close', { duration: 5000 });
+        this.createdE_project=response.payload
+      },
+      error: (error) => this.snackBar.open('Unable to reach API', 'Close')
+
+    });
+   
+    let action={
+      projects : [this.createdE_project]
+    }
+    this.entreprisesService.updateEntrepriseProjects(this.createdEntreprise._id,action).subscribe({
       next: (response: IApiResponse) => {
         this.snackBar.open(response.message, 'Close', { duration: 5000 });
       },

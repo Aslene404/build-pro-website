@@ -97,7 +97,7 @@ router.patch('/update/:id', async function (req, res) {
 // Update Entreprise's projects 
 router.put('/update/:id', async function (req, res) {
     let entrepriseId = req.params.id;
-    let e_projects = req.body.e_projects ? req.body.e_projects : [];
+    let e_projects = req.body.projects ? req.body.projects : [];
 
     await Entreprise.findById(entrepriseId,
         async function (error, _entreprise) {
@@ -109,7 +109,7 @@ router.put('/update/:id', async function (req, res) {
                 });
             } else {
 
-                _entreprise.e_projectsIds = e_projects;
+                _entreprise.projects = e_projects;
                 await _entreprise.save(function (error, doc) {
                     if (error) {
                         res.json({
