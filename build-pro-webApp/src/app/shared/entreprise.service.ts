@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IApiResponse } from 'src/app/shared/models/api-response.model';
+import { IEntreprise } from './models/entreprise.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ getAllEntreprise(): Observable<IApiResponse> {
     return this._httpClient.get(environment.API_URL + '/api/v1/entreprise/all') as Observable<IApiResponse>;
   }
 
-  addEntreprise(entreprise): Observable<IApiResponse> {
+  addEntreprise(entreprise: IEntreprise): Observable<IApiResponse> {
     return this._httpClient.post(environment.API_URL + '/api/v1/entreprise/send', entreprise) as Observable<IApiResponse>;
   }
   updateEntreprise(id,action){
@@ -23,9 +24,9 @@ getAllEntreprise(): Observable<IApiResponse> {
       `${environment.API_URL}/api/v1/entreprise/update/${id}`,action) as Observable<IApiResponse>;
     
   }
-  updateEntrepriseProjects(id,action){
+  updateEntrepriseProjects(id:string,body:{projectId:string}):Observable<IApiResponse>{
     return this._httpClient.put(
-      `${environment.API_URL}/api/v1/entreprise/update/${id}`,action) as Observable<IApiResponse>;
+      `${environment.API_URL}/api/v1/entreprise/update/${id}`,body) as Observable<IApiResponse>;
     
   }
 

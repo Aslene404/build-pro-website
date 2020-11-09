@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Output, Input, OnChanges, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { E_projectssService } from 'src/app/shared/e_projects.service';
@@ -8,6 +8,7 @@ import { IApiResponse } from 'src/app/shared/models/api-response.model';
 import { IUser } from 'src/app/shared/user/user.model';
 import { IEntreprise } from 'src/app/shared/models/entreprise.model';
 import { IE_projects } from 'src/app/shared/models/e_projects.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -15,26 +16,26 @@ import { IE_projects } from 'src/app/shared/models/e_projects.model';
   templateUrl: './entreprise-add.component.html',
   styleUrls: ['./entreprise-add.component.css']
 })
-export class EntrepriseAddComponent implements OnInit {
-
-
-
+export class EntrepriseAddComponent implements OnInit,OnDestroy {
 
   e_projectsForm: FormGroup;
   entrepriseForm: FormGroup;
   currentUser: IUser;
   existUser: IUser;
-  createdEntreprise:IEntreprise;
-  createdE_project:IE_projects;
+  createdEntreprise: IEntreprise;
+  createdProjectId: any;
+  private entrepriseSubscription:Subscription;
+  private projectSubscription:Subscription;
+  
   constructor(private _formBuilder: FormBuilder,
     private entreprisesService: EntreprisesService,
     private e_projectsService: E_projectssService,
     private snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
     
-
-    this.existUser = getcurrentUser();
+    ngOnInit(): void {
+      
+      
+      this.existUser = getcurrentUser();
     this.entrepriseForm = this._formBuilder.group({
       name: ['', Validators.required],
       about: ['', Validators.required],
@@ -51,7 +52,7 @@ export class EntrepriseAddComponent implements OnInit {
       services: this._formBuilder.array([
         this._formBuilder.control('')
       ])
-
+      
 
     });
     this.e_projectsForm = this._formBuilder.group({
@@ -64,6 +65,7 @@ export class EntrepriseAddComponent implements OnInit {
 
 
   }
+
   get services() {
     return this.entrepriseForm.get('services') as FormArray;
   }
@@ -71,42 +73,60 @@ export class EntrepriseAddComponent implements OnInit {
   addService() {
     this.services.push(this._formBuilder.control(''));
   }
-
-  addProject() {
-    var e_project;
-    e_project = {
+  
+   addProject() {
+   
+    const e_project = {
       name: this.e_projectsForm.value.name,
 
-      entreprise: this.createdEntreprise._id 
+      entreprise: this.createdEntreprise._id
 
     }
-    this.e_projectsService.addE_projects(e_project).subscribe({
+     this.entrepriseSubscription=this.e_projectsService.addE_projects(e_project).subscribe({
       next: (response: IApiResponse) => {
         this.snackBar.open(response.message, 'Close', { duration: 5000 });
-        this.createdE_project=response.payload
+        this.createdProjectId = response.payload._id;
+        this.projectSubscription=this.entreprisesService.updateEntrepriseProjects(this.createdEntreprise._id, {"projectId":this.createdProjectId}).subscribe({
+          next: (response: IApiResponse) => {
+            this.snackBar.open(response.message, 'Close', { duration: 5000 });
+          },
+          error: (error) => this.snackBar.open('Unable to reach API', 'Close'),
+          complete: () => {
+            this.e_projectsForm.reset();
+            if(this.projectSubscription){
+              this.projectSubscription.unsubscribe();
+            }
+          }
+        });
+        this.refreshEntreprise();
       },
       error: (error) => this.snackBar.open('Unable to reach API', 'Close')
 
     });
-   
-    let action={
-      projects : [this.createdE_project]
-    }
-    this.entreprisesService.updateEntrepriseProjects(this.createdEntreprise._id,action).subscribe({
-      next: (response: IApiResponse) => {
-        this.snackBar.open(response.message, 'Close', { duration: 5000 });
-      },
-      error: (error) => this.snackBar.open('Unable to reach API', 'Close'),
-      complete: () => this.e_projectsForm.reset()
 
-    });
+   
+    
+
+    this.refreshEntreprise();
+    
   }
 
 
+  
 
+  
 
-
-
+  private refreshEntreprise() {
+    this.entreprisesService.getEntrepriseById(this.createdEntreprise._id).subscribe(
+      {
+        next: (data: IApiResponse) => {
+          console.log(data.payload);
+        },
+        error: console.log,
+        complete: console.log
+      });
+    }
+    
   send() {
     var entreprise;
     entreprise = {
@@ -122,16 +142,21 @@ export class EntrepriseAddComponent implements OnInit {
     this.entreprisesService.addEntreprise(entreprise).subscribe({
       next: (response: IApiResponse) => {
         this.snackBar.open(response.message, 'Close', { duration: 5000 });
-        this.createdEntreprise=response.payload
-        
-        
+        this.createdEntreprise = response.payload
+
+
       },
       error: (error) => this.snackBar.open('Unable to reach API', 'Close'),
       complete: () => this.entrepriseForm.reset()
 
     });
-
+    
   }
+
+  ngOnDestroy(): void {
+    this.entrepriseSubscription.unsubscribe();
+  }
+  
 }
 
 

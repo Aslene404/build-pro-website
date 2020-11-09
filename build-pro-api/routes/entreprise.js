@@ -96,37 +96,28 @@ router.patch('/update/:id', async function (req, res) {
 });
 // Update Entreprise's projects 
 router.put('/update/:id', async function (req, res) {
-    let entrepriseId = req.params.id;
-    let e_projects = req.body.projects ? req.body.projects : [];
+    const entrepriseId = req.params.id;
+    const projectId = req.body.projectId;
+    
 
-    await Entreprise.findById(entrepriseId,
-        async function (error, _entreprise) {
-            if (error) {
-                res.json({
-                    status: "error",
-                    message: "Fail to Update Entreprise's projects :(",
-                    payload: null
-                });
-            } else {
-
-                _entreprise.projects = e_projects;
-                await _entreprise.save(function (error, doc) {
-                    if (error) {
-                        res.json({
-                            status: "error",
-                            message: "Fail to Update Entreprise's projects :(",
-                            payload: null
-                        });
-                    } else {
-                        res.json({
-                            status: "success",
-                            message: "Entreprise's projects Updated successfully",
-                            payload: doc
-                        });
-                    }
-                });
-            }
-        });
+    const theEntreprise = await Entreprise.findById(entrepriseId).exec();
+    if (theEntreprise) {
+        theEntreprise.projects.push(projectId);
+        try {
+            await theEntreprise.save();
+            return res.json({
+                status: "success",
+                message: "Entreprise's projects Updated successfully",
+                payload: theEntreprise
+            });
+        } catch (error) {
+            res.json({
+                status: "error",
+                message: "Fail to Update Entreprise's projects :(",
+                payload: null
+            });
+        }
+    }
 });
 
 // Delete User
