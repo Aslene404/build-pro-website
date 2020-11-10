@@ -14,7 +14,7 @@ import { UserService } from 'src/app/shared/user/user.service';
 })
 export class BackHomeComponent implements OnInit {
   displayedColumns: string[] = [
-  'fullusername','email','phone','role','update','delete'
+  'fullusername','email','phone','role','update','reupdate','delete'
  
 ];
 private subscribtion;
@@ -62,6 +62,19 @@ private subscribtion;
   }
   updateUserRole(id){
     this.userService.updateUserRole(id,"ENTREPRISE").subscribe({
+      next: (response: IApiResponse) => {
+        this.ourUser = response.payload;
+      },
+      error: error => {
+        this.snackBar.open(error.message, 'Close');
+      },
+      complete: () => {
+        this.getAllUsers();
+      }
+    })
+  }
+  reupdateUserRole(id){
+    this.userService.updateUserRole(id,"GUEST").subscribe({
       next: (response: IApiResponse) => {
         this.ourUser = response.payload;
       },
