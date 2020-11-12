@@ -105,7 +105,7 @@
             </div>
         </mat-card>
     </mat-step>
-    <mat-step>
+    <mat-step *ngIf ="this.entrepriseForm.valid">
         <ng-template matStepLabel>Veuillez saisir les projets realisé par votre entreprise</ng-template>
         <mat-card>
             <form [formGroup]="e_projectsForm">
@@ -126,8 +126,11 @@
                 <div>
                     <button mat-raised-button color="primary" (click)="addProject()">Ajouter ce projet à votre
                         entreprise</button>
+                        <button mat-raised-button ><a href="#"> Terminer </a></button>
+                        
 
                 </div>
+                
             </form>
         </mat-card>
     </mat-step>

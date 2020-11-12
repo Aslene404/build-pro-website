@@ -33,6 +33,7 @@ import { RouterModule } from '@angular/router';
 import { EntrepriseProfileComponent } from './components/entreprise-profile/entreprise-profile.component';
 import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
 import { EntrepriseUpdateComponent } from './components/entreprise-update/entreprise-update.component';
+import { EspaceEntrepriseComponent } from './components/espace-entreprise/espace-entreprise.component';
 //Angular Material Components
 
 @NgModule({
@@ -53,7 +54,8 @@ import { EntrepriseUpdateComponent } from './components/entreprise-update/entrep
     DevisFormComponent,
     EntrepriseProfileComponent,
     EntrepriseAddComponent,
-    EntrepriseUpdateComponent
+    EntrepriseUpdateComponent,
+    EspaceEntrepriseComponent
 
   ],
   imports: [

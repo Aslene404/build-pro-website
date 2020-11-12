@@ -8,6 +8,7 @@ import { EntrepriseProfileComponent } from './components/entreprise-profile/entr
 import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
 import {EntrepriseResolver} from './shared/entreprise-resolver.service';
 import {EntrepriseUpdateComponent} from './components/entreprise-update/entreprise-update.component'
+import { EspaceEntrepriseComponent } from './components/espace-entreprise/espace-entreprise.component';
 const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'signin',component:SigninComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'devis',component:DevisFormComponent},
   {path:'entreprise/profile',component:EntrepriseProfileComponent},
   {path:'entreprise/add',component:EntrepriseAddComponent},
+  {path:'entreprise',component:EspaceEntrepriseComponent},
   {path:'entreprise/update/:id',component:EntrepriseUpdateComponent , resolve:{entreprise:EntrepriseResolver}},
   
   {
