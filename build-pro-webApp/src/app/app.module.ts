@@ -34,6 +34,7 @@ import { EntrepriseProfileComponent } from './components/entreprise-profile/entr
 import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
 import { EntrepriseUpdateComponent } from './components/entreprise-update/entreprise-update.component';
 import { EspaceEntrepriseComponent } from './components/espace-entreprise/espace-entreprise.component';
+import { CardEntrepriseComponent } from './components/espace-entreprise/card-entreprise/card-entreprise.component';
 //Angular Material Components
 
 @NgModule({
@@ -55,7 +56,8 @@ import { EspaceEntrepriseComponent } from './components/espace-entreprise/espace
     EntrepriseProfileComponent,
     EntrepriseAddComponent,
     EntrepriseUpdateComponent,
-    EspaceEntrepriseComponent
+    EspaceEntrepriseComponent,
+    CardEntrepriseComponent
 
   ],
   imports: [
