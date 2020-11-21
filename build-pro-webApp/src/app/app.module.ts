@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './shared/user/user.service';
+import { EntreprisesService } from './shared/entreprise.service';
 import { JwtInterceptor } from './shared/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './shared/helpers/error.interceptor';
 import { DevisFormComponent } from './components/devis-form/devis-form.component';
@@ -34,7 +35,15 @@ import { EntrepriseProfileComponent } from './components/entreprise-profile/entr
 import { EntrepriseAddComponent } from './components/entreprise-add/entreprise-add.component';
 import { EntrepriseUpdateComponent } from './components/entreprise-update/entreprise-update.component';
 import { EspaceEntrepriseComponent } from './components/espace-entreprise/espace-entreprise.component';
+import { NgxUploaderModule } from 'ngx-uploader';
+import { FlipModule } from 'ngx-flip';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
+
+import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { CardEntrepriseComponent } from './components/espace-entreprise/card-entreprise/card-entreprise.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 //Angular Material Components
 
 @NgModule({
@@ -68,6 +77,9 @@ import { CardEntrepriseComponent } from './components/espace-entreprise/card-ent
     CommonModule,
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
+    FlipModule,
+    NgxUploaderModule,
     BrowserAnimationsModule,
     HttpClientModule,
     NgbModule,
@@ -75,10 +87,15 @@ import { CardEntrepriseComponent } from './components/espace-entreprise/card-ent
     MatCardModule,
     FormsModule,
     
+    AnimateOnScrollModule.forRoot()
+    
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    UserService],
+    { provide: MAT_DIALOG_DATA, useValue: 'dialogData'},
+    UserService,
+  EntreprisesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

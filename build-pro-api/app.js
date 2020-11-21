@@ -14,6 +14,7 @@ const devisRouter= require('./routes/devis');
 const materialsRouter= require('./routes/materials');
 const projectsRouter= require('./routes/projects');
 const tasksRouter= require('./routes/tasks');
+
 const app = express();
 app.use(cors());
 
@@ -32,7 +33,10 @@ app.use('/api/v1/e_projects' ,e_projectsRouter);
 app.use('/api/v1/devis' ,devisRouter);
 app.use('/api/v1/materials', materialsRouter);
 app.use('/api/v1/tasks', tasksRouter);
+
 app.use('/api/v1/projects', projectsRouter);
+app.use('/uploads/photos', express.static(path.join(__dirname, 'uploads/photos')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // catch 404 and forward to error handler

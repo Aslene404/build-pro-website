@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-card-entreprise',
@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-entreprise.component.css']
 })
 export class CardEntrepriseComponent implements OnInit {
-
+  @Input('') entreprise: any;
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.entreprise);
   }
-
+  
+  
+  flip = false;
+  rotate() {
+    this.flip = !this.flip;
+  }
 }
