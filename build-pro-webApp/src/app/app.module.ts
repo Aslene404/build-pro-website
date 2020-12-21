@@ -44,6 +44,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { CardEntrepriseComponent } from './components/espace-entreprise/card-entreprise/card-entreprise.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UploadEntrepriseLogoComponent } from './components/upload-entreprise-logo/upload-entreprise-logo.component';
+import { UploadEProjectPhotoComponent } from './components/upload-e-project-photo/upload-e-project-photo.component';
 //Angular Material Components
 
 @NgModule({
@@ -66,7 +68,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     EntrepriseAddComponent,
     EntrepriseUpdateComponent,
     EspaceEntrepriseComponent,
-    CardEntrepriseComponent
+    CardEntrepriseComponent,
+    UploadEntrepriseLogoComponent,
+    UploadEProjectPhotoComponent
 
   ],
   imports: [

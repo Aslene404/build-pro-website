@@ -1,7 +1,7 @@
 var express = require('express');
 var multer = require('multer');
 var router = express.Router();
-var E_projects = require('../../models/e_projects-schemas');
+var e_projects = require('../../db/models/e_projects-schemas');
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {

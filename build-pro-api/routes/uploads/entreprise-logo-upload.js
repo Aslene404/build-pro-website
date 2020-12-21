@@ -1,7 +1,7 @@
 var express = require('express');
 var multer = require('multer');
 var router = express.Router();
-var Entreprise = require('../../models/entreprise-schemas');
+var Entreprise = require('../../db/models/entreprise-schemas');
 
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {

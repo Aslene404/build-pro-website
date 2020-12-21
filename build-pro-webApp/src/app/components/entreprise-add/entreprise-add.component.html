@@ -89,16 +89,8 @@
                     </div>
                 </mat-card>
 
-                <br>
-                <h3>Logo de votre entreprise</h3>
-
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputLogo"
-                        aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputLogo">Veuillez choisir le logo de votre
-                        entreprise</label>
-                </div>
-
+                
+                
             </form>
             <div class="flex items-center justify-between">
                 <button mat-raised-button color="primary" matStepperNext (click)="send()">Envoyer</button>
@@ -106,8 +98,19 @@
         </mat-card>
     </mat-step>
     <mat-step *ngIf ="this.entrepriseForm.valid">
-        <ng-template matStepLabel>Veuillez saisir les projets realisé par votre entreprise</ng-template>
+        <ng-template matStepLabel>Veuillez saisir le logo de votre entreprise et les projets realisé par votre entreprise</ng-template>
         <mat-card>
+            <h3>Logo de votre entreprise</h3>
+
+                <div class="custom-file">
+                    <app-upload-entreprise-logo class="lg:w-1/2 xlg:w-1/2 md:w-full sm:w-full 
+                    self-centerd px-3 py-3" 
+                    [entrepriseId]="createdEntreprise._id"
+            (uploadPictureEvent)="refresh($event)">
+
+                    </app-upload-entreprise-logo>
+                </div>
+
             <form [formGroup]="e_projectsForm">
                 <h3>Les Projets réalisés par votre entreprise</h3>
 
@@ -117,20 +120,25 @@
                         formControlName="name">
                     <mat-icon matSuffix>gavel</mat-icon>
                 </mat-form-field>
-                <input type="file" class="custom-file-input" id="inputImage" aria-describedby="inputGroupFileAddon01"
-                    formControlName="photo">
-                <label class="custom-file-label" for="inputImage">Veuillez choisir l'image du projet réalisé par votre
-                    entreprise</label>
-
-
+                
                 <div>
-                    <button mat-raised-button color="primary" (click)="addProject()">Ajouter ce projet à votre
-                        entreprise</button>
-                        <button mat-raised-button ><a href="#"> Terminer </a></button>
+                    <button mat-raised-button color="primary" (click)="addProject()">Confirmer le nom du projet réalisé par votre entreprise</button>
+                        
                         
 
                 </div>
-                
+                <div class="custom-file">
+                    <h3>Photo de ce projet</h3>
+                    <app-upload-e-project-photo class="lg:w-1/2 xlg:w-1/2 md:w-full sm:w-full 
+                    self-centerd px-3 py-3" 
+                    [e_projectId]="createdProjectId"
+            (uploadPictureEvent)="refresh($event)">
+
+                    </app-upload-e-project-photo>
+                </div>
+                <button mat-raised-button ><a href="#"> Terminer </a></button>
+
+
             </form>
         </mat-card>
     </mat-step>

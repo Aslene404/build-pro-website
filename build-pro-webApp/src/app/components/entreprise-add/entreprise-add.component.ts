@@ -147,12 +147,14 @@ export class EntrepriseAddComponent implements OnInit,OnDestroy {
 
       },
       error: (error) => this.snackBar.open('Unable to reach API', 'Close'),
-      complete: () => this.entrepriseForm.reset()
+      complete: () => console.log("fine")
 
     });
     
   }
-
+  refresh(event) {
+    console.log(event)
+  }
   ngOnDestroy(): void {
     this.entrepriseSubscription.unsubscribe();
   }

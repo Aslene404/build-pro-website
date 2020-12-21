@@ -11,6 +11,9 @@ const contactRouter= require('./routes/contact');
 const entrepriseRouter= require('./routes/entreprise');
 const e_projectsRouter= require('./routes/e_projects');
 const devisRouter= require('./routes/devis');
+const entrepriseLogoUploader = require('./routes/uploads/entreprise-logo-upload');
+const e_projectsPhotoUploader = require('./routes/uploads/e_projects-photo-upload');
+
 const materialsRouter= require('./routes/materials');
 const projectsRouter= require('./routes/projects');
 const tasksRouter= require('./routes/tasks');
@@ -31,6 +34,8 @@ app.use('/api/v1/contact' ,contactRouter);
 app.use('/api/v1/entreprise' ,entrepriseRouter);
 app.use('/api/v1/e_projects' ,e_projectsRouter);
 app.use('/api/v1/devis' ,devisRouter);
+app.use('/api/v1/upload/entreprise/logo',entrepriseLogoUploader);
+app.use('/api/v1/upload/e_projects/photo',e_projectsPhotoUploader);
 app.use('/api/v1/materials', materialsRouter);
 app.use('/api/v1/tasks', tasksRouter);
 
