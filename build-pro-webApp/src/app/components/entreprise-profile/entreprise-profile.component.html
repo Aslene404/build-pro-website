@@ -7,16 +7,15 @@
 
 		<div class="p-4 md:p-12 text-center lg:text-left">
 			<!-- Image for mobile view-->
-			<div class="block  rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url('assets/img/blog_item_12.jpg')"></div>
+			<div class="block  rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url({{myEntreprise.logo_url}})"></div>
 			
-			<h1 class="text-3xl font-bold pt-8 lg:pt-0">Entreprise_name</h1>
+			<h1 class="text-3xl font-bold pt-8 lg:pt-0">{{myEntreprise.name}}</h1>
 			<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 ">À propos de nous</div>
-			<p class="mx-auto lg:mx-0 w-4/5 pt-3 "> A propos_text</p>
-			<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 ">Nos services</div>
-			<p class="mx-auto lg:mx-0 w-4/5 pt-3 "> <ul>
-			<li><mat-icon> beenhere</mat-icon>service 1</li>
-			<li><mat-icon> beenhere</mat-icon>service 2</li>
-			<li><mat-icon> beenhere</mat-icon>service 3</li>	
+			<p class="mx-auto lg:mx-0 w-4/5 pt-3 "> {{myEntreprise.about}}</p>
+			<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 " >Nos services</div>
+			<p class="mx-auto lg:mx-0 w-4/5 pt-3 "> <ul *ngFor="let service of myEntreprise.services;let i=index">
+			<li><mat-icon> beenhere</mat-icon>{{service}}</li>
+				
 			</ul>
 			<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 ">Nos projets</div>
 			<p class="mx-auto lg:mx-0 w-4/5 pt-3 "> </p>

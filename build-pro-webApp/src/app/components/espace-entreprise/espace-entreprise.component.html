@@ -22,10 +22,14 @@
         
               </div>
               <div class="px-6 py-4">
+                
                 <span class="inline-block bg-gray-200 rounded-full 
-                          px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                  {{entreprise.about}}</span>
+                          px-3 py-1 text-sm font-semibold text-gray-700 mr-2"*ngFor="let service of entreprise.services ;let i=index">
+                  {{service}}</span>
               </div>
+              <div class="primary-blue-button" style="text-align: center;">
+                <a [routerLink]="['/entreprise/profile' ,entreprise._id]"  class="scroll-link" >En savoir plus </a>
+            </div>
         
             </div>
         

@@ -18,7 +18,7 @@ const routes: Routes = [
   {path:'entreprise/add',component:EntrepriseAddComponent},
   {path:'entreprise',component:EspaceEntrepriseComponent},
   {path:'entreprise/update/:id',component:EntrepriseUpdateComponent , resolve:{entreprise:EntrepriseResolver}},
-  
+  {path:'entreprise/profile/:id',component:EntrepriseProfileComponent},
   {
     path: 'back',
     loadChildren: () => import('./back-office/back-office.module').then(m => m.BackOfficeModule),
