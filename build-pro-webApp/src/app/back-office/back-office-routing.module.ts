@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../_gards/auth.guard';
 import { BackDevisComponent } from './back-devis/back-devis.component';
 import { BackHomeComponent } from './back-home/back-home.component';
 import { BackLandpageComponent } from './back-landpage/back-landpage.component';
@@ -11,20 +12,20 @@ const routes: Routes = [{
   children: [
     {
       path: 'home',
-      component: BackHomeComponent
+      component: BackHomeComponent,canActivate:[AuthGuard]
     },
 
 
     {
       path: 'messages',
-      component: BackMessagesComponent
+      component: BackMessagesComponent,canActivate:[AuthGuard]
     },
     {
       path: 'devis',
-      component: BackDevisComponent
+      component: BackDevisComponent,canActivate:[AuthGuard]
     },
 
-    { path: '**', redirectTo: 'home', pathMatch: 'full' }
+    { path: '**', redirectTo: '/back/home', pathMatch: 'full' }
   ]
 }];
 

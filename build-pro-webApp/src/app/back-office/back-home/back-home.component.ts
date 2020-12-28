@@ -14,7 +14,7 @@ import { UserService } from 'src/app/shared/user/user.service';
 })
 export class BackHomeComponent implements OnInit {
   displayedColumns: string[] = [
-  'fullusername','email','phone','role','update','reupdate','delete'
+  'fullusername','email','phone','role','update','reupdate','adminupdate','delete'
  
 ];
 private subscribtion;
@@ -34,6 +34,8 @@ private subscribtion;
       .subscribe(
         {
           next: (response: IApiResponse) => {
+            
+               
             this.ourUser = response.payload;
             this.dataSource = new MatTableDataSource(this.ourUser);
             this.dataSource.paginator = this.paginator;
@@ -75,6 +77,19 @@ private subscribtion;
   }
   reupdateUserRole(id){
     this.userService.updateUserRole(id,"GUEST").subscribe({
+      next: (response: IApiResponse) => {
+        this.ourUser = response.payload;
+      },
+      error: error => {
+        this.snackBar.open(error.message, 'Close');
+      },
+      complete: () => {
+        this.getAllUsers();
+      }
+    })
+  }
+  adminupdateUserRole(id){
+    this.userService.updateUserRole(id,"ADMIN").subscribe({
       next: (response: IApiResponse) => {
         this.ourUser = response.payload;
       },

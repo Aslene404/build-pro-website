@@ -3,7 +3,8 @@ import { CanActivate, CanActivateChild,
   CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, 
   RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../front-office/authentication.service';
+import { AuthenticationService } from '../shared/authentication.service';
+
 
 
 @Injectable({
