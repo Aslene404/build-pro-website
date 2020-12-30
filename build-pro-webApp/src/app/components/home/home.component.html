@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" style="height: max-content;">
     <div class="container">
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="navbar-header">
@@ -28,13 +28,26 @@
                             Espace entreprise
                         </a>
 
+                        
+
+                    </li>
+                    <li *ngIf="currentUser">
+
+                        <a 
+                        class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                        [routerLink]='["/devis"]' mat-button>
+                        <mat-icon>card_travel</mat-icon>
+                        Demander Votre Devis
+                    </a>
+
+                    </li>
+                    <li>
                         <a *ngIf="currentUser && currentUser.role=='ENTREPRISE'"
                             class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
                             [routerLink]='["/entreprise/add"]' mat-button>
                             <mat-icon>library_add</mat-icon>
                             entreprise
                         </a>
-
                     </li>
 
                     <li><a href="#" class="scroll-link" data-id="contact-us">Contactez-nous</a></li>
