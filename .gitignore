@@ -1,4 +1,4 @@
-data/
-node_modules/
-build-pro-api/node_modules/**
-build-pro-webApp/node_modules/**
+/data
+/node_modules
+/build-pro-api/node_modules/**
+/build-pro-webApp/node_modules/**
